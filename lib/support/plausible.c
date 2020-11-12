@@ -104,7 +104,12 @@ static void print_ext2_info(const char *device)
 	char			buf[80];
 
 	retval = ext2fs_open2(device, 0, EXT2_FLAG_64BITS, 0, 0,
-			      unix_io_manager, &fs);
+#ifdef _WIN64
+			      windows_io_manager,
+#else
+			      unix_io_manager,
+#endif
+                  &fs);
 	if (retval)
 		return;
 	sb = fs->super;
