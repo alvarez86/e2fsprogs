@@ -625,6 +625,7 @@ gl_use_threads_default=
 ac_func_list=
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+OS_IO_FILE
 LDFLAGS_SHLIB
 CFLAGS_STLIB
 CFLAGS_SHLIB
@@ -7236,8 +7237,6 @@ main ()
     if (*(data + i) != *(data3 + i))
       return 14;
   close (fd);
-  free (data);
-  free (data3);
   return 0;
 }
 _ACEOF
@@ -13876,6 +13875,19 @@ CFLAGS_SHLIB=${CFLAGS_SHLIB:-$CFLAGS}
 CFLAGS_STLIB=${CFLAGS_STLIB:-$CFLAGS}
 LDFLAGS_SHLIB=${LDFLAGS_SHLIB:-$LDFLAGS}
 
+
+
+
+
+OS_IO_FILE=""
+case "$host_os" in
+  cigwin*|mingw*|msys*)
+    OS_IO_FILE=windows_io
+  ;;
+  *)
+    OS_IO_FILE=unix_io
+  ;;
+esac
 
 
 test -d lib || mkdir lib

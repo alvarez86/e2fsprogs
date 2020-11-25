@@ -1469,6 +1469,22 @@ LDFLAGS_SHLIB=${LDFLAGS_SHLIB:-$LDFLAGS}
 AC_SUBST(CFLAGS_SHLIB)
 AC_SUBST(CFLAGS_STLIB)
 AC_SUBST(LDFLAGS_SHLIB)
+
+dnl
+dnl Adjust the compiled files if we are on windows vs everywhere else
+dnl
+
+OS_IO_FILE=""
+[case "$host_os" in
+  cigwin*|mingw*|msys*)
+    OS_IO_FILE=windows_io
+  ;;
+  *)
+    OS_IO_FILE=unix_io
+  ;;
+esac]
+AC_SUBST(OS_IO_FILE)
+
 dnl
 dnl Make our output files, being sure that we create the some miscellaneous 
 dnl directories
